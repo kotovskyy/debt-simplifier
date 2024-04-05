@@ -1,6 +1,17 @@
 import os
 import csv
-from typing import List
+from typing import List, Tuple
+
+def getArguments() -> str:
+    import argparse
+    parser = argparse.ArgumentParser(
+        prog="DebtSimplifier",
+        description="A tool to simplify debts between a group of people"
+    )
+    parser.add_argument("filepath", type=str, help="Path to the CSV file containing the data")
+    args = parser.parse_args()
+    return args.filepath
+    
 
 def _fileExists(filepath: str) -> bool:
     return os.path.isfile(filepath)
@@ -16,8 +27,8 @@ def readData(filepath: str) -> List[List[str]]:
     return data
 
 def main():
-    filepath = "test_data/debts.csv"
-    readData(filepath)
+    filepath = getArguments()
+    data = readData(filepath)
 
 if __name__ == "__main__":
     main()

@@ -22,6 +22,7 @@ ENV PATH="${POETRY_HOME}/bin:${PATH}"
 # install project dependencies
 COPY --chown=65534:65534 ./poetry.lock ./pyproject.toml ./
 RUN poetry install --no-root --only main
+RUN poetry add boto3
 
 FROM python:3.12-slim-bullseye@sha256:c66cf219ac0083a9af2ff90e16530f16cd503c59eb7909feb3b8f3524dc1a87e
 

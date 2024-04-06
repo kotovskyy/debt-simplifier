@@ -27,6 +27,17 @@ def readData(filepath: str) -> List[List[str]]:
     
     return data
 
+def saveData(filepath: str, data: List[List[str]]):
+    dirpath = os.path.dirname(filepath)
+    if not os.path.isdir(dirpath):
+        raise FileNotFoundError(f"Directory '{dirpath}' does not exist.")
+    if not os.access(dirpath, os.W_OK):
+        raise PermissionError(f"No write access to directory '{dirpath}'.")
+    
+    with open(filepath, "w", newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerows(data)
+        
 
 def _initPersonTotal(data: List[List[str]]) -> dict:
     person_total = {}
@@ -68,6 +79,7 @@ def main():
     filepath = getArguments()
     data = readData(filepath)
     output = settleDebts(data)
+    saveData("part_1/output.csv", output)
 
 
 if __name__ == "__main__":

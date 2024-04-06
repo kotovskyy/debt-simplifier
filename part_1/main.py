@@ -2,15 +2,16 @@ import os
 import csv
 from typing import List, Tuple
 
-def getArguments() -> str:
+def getArguments() -> Tuple[str]:
     import argparse
     parser = argparse.ArgumentParser(
         prog="DebtSimplifier",
         description="A tool to simplify debts between a group of people"
     )
-    parser.add_argument("filepath", type=str, help="Path to the CSV file containing the data")
+    parser.add_argument("data_path", type=str, help="Path to the CSV file containing the data")
+    parser.add_argument("output_path", type=str, help="Path to the CSV file where the output will be saved")
     args = parser.parse_args()
-    return args.filepath
+    return (args.data_path, args.output_path)
     
 
 def _fileExists(filepath: str) -> bool:
@@ -76,10 +77,10 @@ def _settleDebts(people: List[str], totals: List[int]):
 
 
 def main():
-    filepath = getArguments()
-    data = readData(filepath)
+    data_path, output_path = getArguments()
+    data = readData(data_path)
     output = settleDebts(data)
-    saveData("part_1/output.csv", output)
+    saveData(output_path, output)
 
 
 if __name__ == "__main__":

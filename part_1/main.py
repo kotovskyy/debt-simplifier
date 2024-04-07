@@ -46,6 +46,8 @@ def readData(filepath: str) -> List[List[str]]:
     """
     if not _fileExists(filepath):
         raise FileNotFoundError(f"File '{filepath}' does not exist.")
+    if not os.access(filepath, os.R_OK):
+        raise PermissionError(f"No read access to file '{filepath}'.")
     
     with open(filepath, newline='') as csvfile:
         data = csv.reader(csvfile)

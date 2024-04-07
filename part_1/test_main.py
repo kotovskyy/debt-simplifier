@@ -1,5 +1,6 @@
 import os
 import csv
+from unittest.mock import patch
 import pytest
 from main import saveData, readData, settleDebts
 
@@ -7,7 +8,15 @@ def test_saveDataCreatesFile(tmpdir):
     filepath = tmpdir.join("test_output.csv")
     data = [["a", "b", "1"], ["c", "d", "2"]]
     saveData(filepath, data)
-    assert os.path.isfile(filepath) 
+    assert os.path.isfile(filepath)
+
+
+def test_saveDataNoWriteAccess(tmpdir):
+    filepath = tmpdir.join("test_output.csv")
+    data = [["a", "b", "1"], ["c", "d", "2"]]
+    with patch("os.access", return_value=False):
+        with pytest.raises(PermissionError):
+            saveData(filepath, data)
 
 
 def test_saveDataNoParentDir(tmpdir):
@@ -35,6 +44,13 @@ def test_readDataValidFile():
                 ["Michał", "Kamil", "13"]]
     data = readData(filepath)
     assert data == expected
+    
+
+def test_readDataNoReadAccess():
+    filepath = "test_data/debts_3.csv"
+    with patch("os.access", return_value=False):
+        with pytest.raises(PermissionError):
+            readData(filepath)
 
 
 def test_readDataEmptyFile(tmpdir):

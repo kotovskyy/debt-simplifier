@@ -60,12 +60,12 @@ def saveData(filepath: str, data: List[List[str]]) -> None:
     Save data to a CSV file.
 
     Args:
-        - `filepath: str`: The path to the CSV file.
-        - `data: List[List[str]]`: The data to be saved.
+        - `filepath: str` - The path to the CSV file.
+        - `data: List[List[str]]` - The data to be saved.
 
     Raises:
-        - `FileNotFoundError`: If the directory of the filepath does not exist.
-        - `PermissionError`: If there is no write access to the directory of the filepath.
+        - `FileNotFoundError` - If the directory of the filepath does not exist.
+        - `PermissionError` - If there is no write access to the directory of the filepath.
     """
     dirpath = os.path.dirname(filepath)
     if not os.path.isdir(dirpath):
@@ -84,10 +84,10 @@ def _initPersonTotal(data: List[List[str]]) -> dict:
     ("+" amount sign) or paid ("-" amount sign) by each person.
 
     Args:
-        - `data: List[List[str]]`: A list of lists containing receiver, payer, and amount.
+        - `data: List[List[str]]` - A list of lists containing receiver, payer, and amount.
 
     Returns:
-        - `dict`: A dictionary where the keys are the names of the persons 
+        - `dict` - A dictionary where the keys are the names of the persons 
         involved and the values are the total amounts owed or paid by each person.
     """
     person_total = {}
@@ -102,10 +102,10 @@ def settleDebts(data: List[List[str]]) -> List[List[str]]:
     Settles debts among a group of people based on the given data.
 
     Args:
-        - `data: List[List[str]]`: A list of lists representing the debt data.
+        - `data: List[List[str]]` - A list of lists representing the debt data.
 
     Returns:
-        - `List[List[str]]`: A list of lists representing the settled debts. 
+        - `List[List[str]]` - A list of lists representing the settled debts. 
     """
     person_total = _initPersonTotal(data)
     people = sorted(person_total, key=lambda x: person_total[x])
@@ -118,12 +118,12 @@ def _findSettlements(people: List[str], totals: List[int], i: int) -> List[List[
     Finds settlements between people based on their totals.
 
     Args:
-        - `people: List[str]`: A list of people's names.
-        - `totals: List[int]`: A list of total amounts for each person.
-        - `i: int`: The index of the current person.
+        - `people: List[str]` - A list of people's names.
+        - `totals: List[int]` - A list of total amounts for each person.
+        - `i: int` - The index of the current person.
 
     Returns:
-        - `List[List[str]]`: A list of settlements.
+        - `List[List[str]]` - A list of settlements.
     """
     settlements = []
     for j in range(len(people)-1, i, -1):
@@ -142,11 +142,11 @@ def _settleDebts(people: List[str], totals: List[int]) -> List[List[str]]:
     `settleDebts()` helper. Finds the settlements for debts among a group of people.
 
     Args:
-        - `people: List[str]`: A list of people's names.
-        - `totals: List[int]`: A list of debt totals for each person.
+        - `people: List[str]` - A list of people's names.
+        - `totals: List[int]` - A list of debt totals for each person.
 
     Returns:
-        - `List[List[str]]`: A list of settlements.
+        - `List[List[str]]` - A list of settlements.
     """
     settlements = []
     for i in range(len(people)):

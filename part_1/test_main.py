@@ -37,7 +37,7 @@ def test_saveDataSuccess(tmpdir):
 
 
 def test_readDataValidFile():
-    filepath = "test_data/debts_3.csv"
+    filepath = os.path.join(os.path.dirname(__file__), "../test_data/debts_3.csv")
     expected = [["Jacek", "Dominik", "10"],
                 ["Dominik", "Jacek", "5"],
                 ["Kasia", "Dominik", "5"],
@@ -47,7 +47,7 @@ def test_readDataValidFile():
     
 
 def test_readDataNoReadAccess():
-    filepath = "test_data/debts_3.csv"
+    filepath = os.path.join(os.path.dirname(__file__), "../test_data/debts_3.csv")
     with patch("os.access", return_value=False):
         with pytest.raises(PermissionError):
             readData(filepath)

@@ -1,13 +1,6 @@
 # Debt Simplifer
-## Author
-- Aliaksandr Kandrat
-- alexkondratru@gmail.com
 
 **All code was written and tested using Python 3.12.0.**
-
-## For task's authors
-I want to thank you for the task you provided. I had a great time implementing the solution, testing and refactoring it. I had an opportunity to learn more about technologies like SQS queue, S3 bucket and LocalStack. **Thank you!**
-
 
 # Part 1 - Debt Simplifier main script
 
